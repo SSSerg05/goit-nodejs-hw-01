@@ -1,9 +1,12 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
+const folderPath = './db/contacts'
+// fs.readdirSync(folderPath)
 
-function readDir() {
-  fs.readdir(path.dirname('./db/'))
+
+function readDir(currentPath='') {
+  fs.readdir(currentPath)
   .then(files => {
     return Promise.all(
       files.map(async filename => {

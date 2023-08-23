@@ -1,11 +1,11 @@
 // const fs = require('fs').promises;
 import { promises as fs } from 'fs';
-const contactsPath = require('node:path');
+import { dirname } from 'path';
 
-
+const contactsPath = dirname('./db/')
 console.log(contactsPath);
 
-fs.readFile(contactsPath.dirname('./db'))
+fs.readFile(contactsPath)
   .then(data => console.log(data.toString()))
   .catch(err => console.log(err.message));
 
