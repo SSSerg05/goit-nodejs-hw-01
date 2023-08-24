@@ -1,20 +1,26 @@
 // const fs = require('fs').promises;
 import { promises as fs } from 'fs';
-import { dirname } from 'path';
+import path from 'path';
 
-const contactsPath = dirname('./db/')
-console.log(contactsPath);
+const contactsPath = './db/contacts.json';
 
-fs.readFile(contactsPath)
-  .then(data => console.log(data.toString()))
-  .catch(err => console.log(err.message));
+async function readFile(fileName) {
+  const filePath = path.dirname(fileName)
+  const db = await fs.readFile(contactsPath)
+    .then(data => {
+      //console.log(data.toString())
+      return data.toString();
+    } )
+    .catch(err => console.log(err.message));
+  //console.log(db);
+  return db
+}
 
 
 // TODO: задокументировать каждую функцию
-function listContacts() {
+async function listContacts() {
   // ...твой код. Возвращает массив контактов.
-  console.log(db);
-  return db;
+  return readFile(contactsPath);
 }
 
 function getContactById(contactId) {
@@ -31,6 +37,8 @@ function addContact(name, email, phone) {
   // ...твой код. Возвращает объект добавленного контакта. Возвращает null если объект с таким id не найден.
   return null;
 }
+
+listContacts().then(data => console.log(data))
 
 export default {
   listContacts,
