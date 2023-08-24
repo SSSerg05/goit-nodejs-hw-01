@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "fs": "^0.0.1-security",
+    "nanoid": "^4.0.2",
     "path": "^0.12.7"
   }
 }
