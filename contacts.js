@@ -64,7 +64,7 @@ export const removeContact = async({ id }) => {
   }
   
   const data = await readData(contactsPath);
-  const result = data.filter(item => item.id !== contactId)
+  const result = data.filter(item => item.id !== id)
   await updateData(result);
 
   return removeField;
