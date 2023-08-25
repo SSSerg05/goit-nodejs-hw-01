@@ -1,45 +1,37 @@
-import Contacts from "./contacts.js"
+import {listContacts, removeContact, addContact, getContactById} from "./contacts.js"
 import { program } from "commander";
 
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
-  const actions = [
-    { list: Contacts.listContacts },
-    { remove: Contacts.removeContact },
-    { add: Contacts.addContact },
-    { get: Contacts.getContactById },
-  ]
-  if (actions[action] === 'undefined') { 
-    return console.log('Unknown action type');
+  const actions = {
+    list: listContacts,
+    remove: removeContact,
+    add: addContact,
+    get: getContactById 
+  };
+
+  if (!actions[action]) { 
+    return console.log(`Unknown action type - ${action}`);
   }
 
-  actions[action]({id, name, email, phone})
+  const field = { id, name, email, phone }
+  console.log(field);
+  await actions[action](field)
+    .then (result => console.log(result) )
+  
 }
 
 program
-  .option("-a, --action <type>", 'choose action')
-  .option("-i, --id     <type>", 'user id')
-  .option("-n, --name   <type>", 'user name')
-  .option("-e, --email  <type>", 'user email')
-  .option("-p, --phone  <type>", 'user phone' );
+  .option("-a, --action <type>")
+  .option("-i, --id     <type>",)
+  .option("-n, --name   <type>")
+  .option("-e, --email  <type>")
+  .option("-p, --phone  <type>");
 
 program.parse()
 const options = program.opts();
+console.log(options);
+
+//invokeAction(options);
 
 console.log("Hi. This HW-01");
-
-Contacts.listContacts()
-  .then(data => console.log(data));
-
-Contacts.getContactById({ id: 'qdggE76Jtbfd9eWJHrssH'})
-  .then(data => console.log(data));
-
-Contacts.addContact({ name: 'qqq', email: 'nnnn', phone: '1111' })
-  .then(data => console.log(data));
-
-Contacts.removeContact({ id: 'qdggE76Jtbfd9eWJHrssH'})
-  .then(data => console.log(data));
-
-// Contacts.listContacts()
-//   .then(data => console.log(data));
-
