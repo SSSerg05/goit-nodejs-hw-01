@@ -6,7 +6,9 @@ import { nanoid } from 'nanoid';
 
 const contactsPath = path.resolve('db', 'contacts.json');
 
-
+// Read File DataBase
+//=======================
+// fileName : string
 const readData = async (fileName) => {
   try {
     const data = await fs.readFile(fileName);
@@ -19,12 +21,16 @@ const readData = async (fileName) => {
   return null;
 }
 
-const updateData = (data) => fs.writeFile(contactsPath, JSON.stringify(data, null, 2))
-
-
-/* List Contacts
+// Update File DataBase
 //=======================
-*/
+// data : array objects
+const updateData = (data) =>
+  fs.writeFile(contactsPath, JSON.stringify(data, null, 2))
+
+
+// List Contacts
+//=======================
+// return@ [{...},{...},{...}] || null
 export const listContacts = async () => {
   // ...твой код. Возвращает массив контактов.
   const data = await readData(contactsPath);
@@ -36,7 +42,7 @@ export const listContacts = async () => {
 // get Contact By Id
 //=======================
 // contactId : string
-//
+// return@ findField || null
 export const getContactById = async (contactId) => {
   // ...твой код. Возвращает объект контакта с таким id. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
@@ -46,13 +52,16 @@ export const getContactById = async (contactId) => {
 }
 
 
-// remove field of DB 
+// remove field without DataBase file 
 //=======================
 //  contactId: string
-//
+//  return@ deleted field || null
 export const removeContact = async (contactId) => {
   // ...твой код. Возвращает объект удаленного контакта. Возвращает null если объект с таким id не найден.
   const removeField = await getContactById(contactId);
+  if (removeField === null) { 
+    return null
+  }
   
   const data = await readData(contactsPath);
   const result = data.filter(item => item.id !== contactId)
@@ -62,12 +71,12 @@ export const removeContact = async (contactId) => {
 }
 
 
-//  add Contact in DB
+// Add Contact in DataBase file
 //=======================
 //    name: string,
 //    email: string,
 //    phone: string 
-//
+//  return@ newField
 export const addContact = async (name, email, phone) => {
   // ...твой код. Возвращает объект добавленного контакта. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
@@ -76,7 +85,7 @@ export const addContact = async (name, email, phone) => {
 
   await updateData(result);
 
-  return null;
+  return newField;
 }
 
 
