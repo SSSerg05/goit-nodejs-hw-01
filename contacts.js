@@ -43,10 +43,10 @@ export const listContacts = async () => {
 //=======================
 // contactId : string
 // return@ findField || null
-export const getContactById = async (contactId) => {
+export const getContactById = async ({ id }) => {
   // ...твой код. Возвращает объект контакта с таким id. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
-  const result = data.find(item => item.id === contactId)
+  const result = data.find(item => item.id === id)
 
   return result || null;
 }
@@ -56,9 +56,9 @@ export const getContactById = async (contactId) => {
 //=======================
 //  contactId: string
 //  return@ deleted field || null
-export const removeContact = async (contactId) => {
+export const removeContact = async({ id }) => {
   // ...твой код. Возвращает объект удаленного контакта. Возвращает null если объект с таким id не найден.
-  const removeField = await getContactById(contactId);
+  const removeField = await getContactById({ id });
   if (removeField === null) { 
     return null
   }
@@ -77,7 +77,7 @@ export const removeContact = async (contactId) => {
 //    email: string,
 //    phone: string 
 //  return@ newField
-export const addContact = async (name, email, phone) => {
+export const addContact = async ({ name, email, phone }) => {
   // ...твой код. Возвращает объект добавленного контакта. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
   const newField = {id: nanoid(), name, email, phone};
