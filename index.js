@@ -1,9 +1,12 @@
-//import { listContacts } from "./contacts.js"
-import readDir from './files.js'
+import Contacts from "./contacts.js"
 
-readDir('./db/contacts.json');
 console.log("Hi. This HW-01");
-//console.log(listContacts());
 
+// Contacts.getContactById('qdggE76Jtbfd9eWJHrssH')
+//   .then(data => console.log(data));
 
+Contacts.addContact('qqq', 'nnnn', '1111')
+  .then(data => console.log(data));
 
+// Contacts.listContacts()
+//   .then(data => console.log(data));

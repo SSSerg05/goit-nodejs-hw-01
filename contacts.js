@@ -1,15 +1,16 @@
 // const fs = require('fs').promises;
 import { promises as fs } from 'fs';
-import nanoid from 'nanoid';
+import path from 'path';
+import { nanoid } from 'nanoid';
 
 
-const contactsPath = fs.resolve('db', 'contacts.json');
+const contactsPath = path.resolve('db', 'contacts.json');
 
 
 const readData = async (fileName) => {
   try {
     const data = await fs.readFile(fileName);
-    return data.toString();   
+    return JSON.parse(data);
 
   } catch (error) {
     console.log(`Cannot read file or file not found. ${error}`);
@@ -18,7 +19,7 @@ const readData = async (fileName) => {
   return null;
 }
 
-
+const updateData = (data) => fs.writeFile(contactsPath, JSON.stringify(data, null, 2))
 
 
 /* List Contacts
@@ -27,7 +28,7 @@ const readData = async (fileName) => {
 export const listContacts = async () => {
   // ...твой код. Возвращает массив контактов.
   const data = await readData(contactsPath);
-  console.log(data);
+
   return data || null;
 }
 
@@ -55,9 +56,9 @@ export const removeContact = async (contactId) => {
   
   const data = await readData(contactsPath);
   const result = data.filter(item => item !== contactId)
-  await fs.writeFile(contactsPath, result);
+  updateData(result);
 
-  return removeField
+  return removeField;
 }
 
 
@@ -70,11 +71,10 @@ export const removeContact = async (contactId) => {
 export const addContact = async (name, email, phone) => {
   // ...твой код. Возвращает объект добавленного контакта. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
-  const id = nanoid();
-  const newField = {id, name, email, phone};
-  const result = [...data, newField];
+  const newField = {id: nanoid(), name, email, phone};
+  const result = [ ...data, newField ];
 
-  await fs.writeFile(contactsPath, result);
+  updateData(result);
 
   return null;
 }
