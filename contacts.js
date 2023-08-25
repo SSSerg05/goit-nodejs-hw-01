@@ -52,10 +52,10 @@ export const getContactById = async (contactId) => {
 //
 export const removeContact = async (contactId) => {
   // ...твой код. Возвращает объект удаленного контакта. Возвращает null если объект с таким id не найден.
-  const removeField = getContactById(contactId);
+  const removeField = await getContactById(contactId);
   
   const data = await readData(contactsPath);
-  const result = data.filter(item => item !== contactId)
+  const result = data.filter(item => item.id !== contactId)
   updateData(result);
 
   return removeField;
