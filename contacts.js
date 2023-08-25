@@ -56,7 +56,7 @@ export const removeContact = async (contactId) => {
   
   const data = await readData(contactsPath);
   const result = data.filter(item => item.id !== contactId)
-  updateData(result);
+  await updateData(result);
 
   return removeField;
 }
@@ -74,7 +74,7 @@ export const addContact = async (name, email, phone) => {
   const newField = {id: nanoid(), name, email, phone};
   const result = [ ...data, newField ];
 
-  updateData(result);
+  await updateData(result);
 
   return null;
 }
