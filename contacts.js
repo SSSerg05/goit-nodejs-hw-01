@@ -8,7 +8,9 @@ const contactsPath = path.resolve('db', 'contacts.json');
 
 // Read File DataBase
 //=======================
-// fileName : string
+// @param {string} [fileName]
+// 
+// @return [{...},{...}] || null - array of objects || null
 const readData = async (fileName) => {
   try {
     const data = await fs.readFile(fileName);
@@ -23,14 +25,16 @@ const readData = async (fileName) => {
 
 // Update File DataBase
 //=======================
-// data : array objects
+// @param {string} data
+// 
+// @return undefined
 const updateData = (data) =>
   fs.writeFile(contactsPath, JSON.stringify(data, null, 2))
 
 
 // List Contacts
 //=======================
-// return@ [{...},{...},{...}] || null
+// @return [{...},{...},{...}] || null
 export const listContacts = async () => {
   // ...твой код. Возвращает массив контактов.
   const data = await readData(contactsPath);
@@ -41,8 +45,9 @@ export const listContacts = async () => {
 
 // get Contact By Id
 //=======================
-// contactId : string
-// return@ findField || null
+// @param {object} {id}
+// 
+// @return {...} || null - object || null
 export const getContactById = async ({ id }) => {
   // ...твой код. Возвращает объект контакта с таким id. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
@@ -54,8 +59,9 @@ export const getContactById = async ({ id }) => {
 
 // remove field without DataBase file 
 //=======================
-//  contactId: string
-//  return@ deleted field || null
+// @param {object} {id}
+// 
+// @return {...} || null - object || null
 export const removeContact = async({ id }) => {
   // ...твой код. Возвращает объект удаленного контакта. Возвращает null если объект с таким id не найден.
   const removeField = await getContactById({ id });
@@ -74,10 +80,9 @@ export const removeContact = async({ id }) => {
 
 // Add Contact in DataBase file
 //=======================
-//    name: string,
-//    email: string,
-//    phone: string 
-//  return@ newField
+// @param {object} {name, email, phone}
+// 
+// @return {...} || null - object || null
 export const addContact = async ({ name, email, phone }) => {
   // ...твой код. Возвращает объект добавленного контакта. Возвращает null если объект с таким id не найден.
   const data = await readData(contactsPath);
