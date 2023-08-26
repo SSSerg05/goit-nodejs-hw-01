@@ -20,7 +20,7 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
 
   const field = { id, name, email, phone }
   await actions[action](field)
-    .then (result => console.log(result) )
+    .then (result => console.table(result) )
   
 }
 
