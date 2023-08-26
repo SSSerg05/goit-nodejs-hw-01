@@ -1,7 +1,11 @@
 import {listContacts, removeContact, addContact, getContactById} from "./contacts.js"
 import { program } from "commander";
 
-
+// Invoke Action with command line in terminal
+//=======================
+// @param {object} {action, id, name, email, phone}
+// 
+// @return undefined
 const invokeAction = async ({ action, id, name, email, phone }) => {
   const actions = {
     list: listContacts,
@@ -19,6 +23,7 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
     .then (result => console.log(result) )
   
 }
+
 
 program
   .option("-a, --action <type>")
