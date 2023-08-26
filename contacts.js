@@ -59,7 +59,8 @@ export const getContactById = async ({ id }) => {
 export const removeContact = async({ id }) => {
   // ...твой код. Возвращает объект удаленного контакта. Возвращает null если объект с таким id не найден.
   const removeField = await getContactById({ id });
-  if (removeField === null) { 
+
+  if (!removeField) { 
     return null
   }
   
